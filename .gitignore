@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.runtime/
+.cache/
+release/
+*.log
+.env
+auth.json
+data.json
+.inplace-chat/
+.DS_Store

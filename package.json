@@ -1,0 +1,28 @@
+{
+  "name": "obsidian-inplace-chat",
+  "version": "0.9.6",
+  "private": true,
+  "description": "Explicitly triggered, document-scoped conversations in Obsidian comments",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test test/*.test.cjs",
+    "install:vault": "node scripts/install.cjs",
+    "package:starter": "node scripts/package-starter.cjs --download --output release/empty-vault"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "pdfjs-dist": "6.3.289"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/herberthu046-hbt/obsidian-inplace-chat.git"
+  },
+  "homepage": "https://github.com/herberthu046-hbt/obsidian-inplace-chat",
+  "bugs": {
+    "url": "https://github.com/herberthu046-hbt/obsidian-inplace-chat/issues"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

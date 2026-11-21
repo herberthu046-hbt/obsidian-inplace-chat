@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "plugins": [
+    {
+      "id": "document-comments",
+      "version": "0.1.15",
+      "repo": "kylemcd/obsidian-document-comments",
+      "release": "https://github.com/kylemcd/obsidian-document-comments/releases/tag/0.1.15",
+      "files": [
+        {
+          "name": "main.js",
+          "sha256": "256cd7e3257f8feae337f73f58cc50868aa74a051ab4507d44b6da59616aa8dc"
+        },
+        {
+          "name": "manifest.json",
+          "sha256": "7660606ec03aa90c9f8ef21253e922470718a553fc33475763bb50e7cfccffc2"
+        },
+        {
+          "name": "styles.css",
+          "sha256": "e99550b4be24884dd9a0c247f1ba40cb909d634673b957c284ff3fab7874f492"
+        }
+      ]
+    },
+    {
+      "id": "local-pdf-annotator",
+      "version": "0.3.4",
+      "repo": "AlexanderT142/Alex-annotator",
+      "release": "https://github.com/AlexanderT142/Alex-annotator/releases/tag/0.3.4",
+      "files": [
+        {
+          "name": "main.js",
+          "sha256": "ea93850d02d9408b1c0e381f63c7d1802b632745c5a692d4a3dc07c77c6b7266"
+        },
+        {
+          "name": "manifest.json",
+          "sha256": "62546c0d19785ffa5b259d44c9045499abf4f1a8d1040e56b4ec760e6431620f"
+        },
+        {
+          "name": "styles.css",
+          "sha256": "f583a04d1cd03d4b8fa8e4605c29c7b2c5ba591fbc8f2824eda8e62d18ea496a"
+        }
+      ]
+    }
+  ]
+}
