@@ -16,8 +16,8 @@ function powershell(command, options = {}) {
     encoding: 'utf8', windowsHide: true, ...options,
   });
 }
-function fixture(t) {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'ipc-setup-test-'));
+function fixture(t, base = os.tmpdir()) {
+  const root = fs.mkdtempSync(path.join(base, 'ipc-setup-test-'));
   const vault = path.join(root, "同学's notes"), source = path.join(root, 'codex source');
   fs.mkdirSync(vault); fs.mkdirSync(source);
   // Synthetic marker only: the installer never reads or prints credentials.
@@ -54,7 +54,45 @@ test('Windows setup honors CODEX_HOME and preserves legacy Plan during a read-on
   assert.equal(fs.existsSync(result), false);
   run = powershell(`Set-Location -LiteralPath ${literal(f.root)}; & ${literal(script)} -Vault ${literal(path.relative(f.root, f.vault))} -Source ${literal(path.relative(f.root, f.source))} -CheckOnly`);
   assert.equal(run.status, 0, run.stderr || run.stdout);
-  assert.equal(JSON.parse(run.stdout).homes[0].vault, f.vault);
+  // Set-Location itself expands 8.3 names before the relative argument reaches
+  // the script; check against that shell's actual working directory.
+  const cwd = powershell(`Set-Location -LiteralPath ${literal(f.root)}; (Get-Location).ProviderPath`).stdout.trim();
+  assert.equal(JSON.parse(run.stdout).homes[0].vault, path.resolve(cwd, path.relative(f.root, f.vault)));
+});
+
+test('Windows setup preserves real 8.3 paths in the vault hash and source home', { skip: !windows }, t => {
+  const candidates = [os.tmpdir(), path.resolve(__dirname, '..')];
+  const probe = powershell(`
+    Add-Type -TypeDefinition @'
+using System;
+using System.Text;
+using System.Runtime.InteropServices;
+public static class ShortPathProbe {
+  [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
+  public static extern uint GetShortPathNameW(string path, StringBuilder buffer, uint size);
+}
+'@
+    $paths = @(${candidates.map(literal).join(',')})
+    $shortPaths = @(foreach ($candidate in $paths) {
+      $buffer = New-Object Text.StringBuilder 32768
+      $length = [ShortPathProbe]::GetShortPathNameW($candidate, $buffer, $buffer.Capacity)
+      if ($length -gt 0 -and $length -lt $buffer.Capacity) { $buffer.ToString() }
+    })
+    ConvertTo-Json -InputObject $shortPaths
+  `);
+  assert.equal(probe.status, 0, probe.stderr);
+  const base = JSON.parse(probe.stdout).find(value => /~\d/.test(value));
+  if (!base) { t.skip('No existing 8.3 alias is available on these volumes'); return; }
+  const f = fixture(t, base);
+  for (const vault of [f.vault, f.vault[0].toLowerCase() + f.vault.slice(1)]) {
+    const run = powershell(`& ${literal(script)} -Vault ${literal(vault)} -Source ${literal(f.source)} -CheckOnly`);
+    assert.equal(run.status, 0, run.stderr || run.stdout);
+    const entry = JSON.parse(run.stdout).homes[0];
+    assert.equal(entry.vault, path.resolve(vault));
+    assert.equal(entry.source, path.resolve(f.source));
+    assert.equal(path.basename(entry.home), createHash('sha256').update(path.resolve(vault)).digest('hex').slice(0, 16));
+    assert.match(entry.vault, /~\d/);
+  }
 });
 
 test('Windows setup rejects a missing login before UAC and returns a useful legacy Plan error', { skip: !windows }, t => {

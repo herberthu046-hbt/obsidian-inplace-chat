@@ -1,6 +1,6 @@
 {
   "name": "obsidian-inplace-chat",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "private": true,
   "description": "Explicitly triggered, document-scoped conversations in Obsidian comments",
   "scripts": {

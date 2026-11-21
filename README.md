@@ -8,8 +8,8 @@
 
 👉 [下载最新版](https://github.com/herberthu046-hbt/obsidian-inplace-chat/releases/latest)
 
-- **第一次用**：下载 `inplace-chat-empty-vault-0.9.6.zip`。已带好插件，里面没有讲义、聊天或账号。
-- **已有 Obsidian 库**：下载 `inplace-chat-0.9.6.zip`，把 `inplace-chat` 文件夹放到库的 `.obsidian/plugins/`。另需 Document Comments 和 PDF Annotator，见[完整安装说明](docs/guide.md)。
+- **第一次用**：下载 `inplace-chat-empty-vault-0.9.7.zip`。已带好插件，里面没有讲义、聊天或账号。
+- **已有 Obsidian 库**：下载 `inplace-chat-0.9.7.zip`，把 `inplace-chat` 文件夹放到库的 `.obsidian/plugins/`。另需 Document Comments 和 PDF Annotator，见[完整安装说明](docs/guide.md)。
 - 想自己改：直接 clone 本仓库。也可以从[空白模板库](https://github.com/herberthu046-hbt/obsidian-inplace-chat-starter) 点 **Use this template**。
 
 **不要下 GitHub 自动生成的 Source code 充当插件安装包。**

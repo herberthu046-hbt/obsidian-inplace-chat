@@ -10,8 +10,8 @@
 
 | 下载文件 | 适合谁 |
 | --- | --- |
-| `inplace-chat-empty-vault-0.9.6.zip` | 第一次用：包含空白库、三个所需插件和上手说明 |
-| `inplace-chat-0.9.6.zip` | 已有 Obsidian 库：只安装本插件，批注依赖另装 |
+| `inplace-chat-empty-vault-0.9.7.zip` | 第一次用：包含空白库、三个所需插件和上手说明 |
+| `inplace-chat-0.9.7.zip` | 已有 Obsidian 库：只安装本插件，批注依赖另装 |
 | `main.js`、`manifest.json`、`styles.css` | 手动安装或更新本插件的三个文件 |
 | `SHA256SUMS.txt` | 校验下载文件 |
 
